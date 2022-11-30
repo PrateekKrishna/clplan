@@ -15,5 +15,5 @@ pub fn init() {
         .read_line(&mut email)
         .expect("Expected your email");
     println!("Your email is: {} ", email);
-    let _f = File::create("db.json");
+    let _f = File::create("src/db.json");
 }

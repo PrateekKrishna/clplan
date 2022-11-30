@@ -1,4 +1,5 @@
 mod init;
+mod scripts;
 use std::path::Path;
 
 fn main() {
@@ -6,12 +7,12 @@ fn main() {
     // println!("{}", args);
 
     
-    let c = Path::new("db.json").exists();
+    let c = Path::new("src/db.json").exists();
     if args == "init" && c == false{
         init::init();
     }
 
-    let b = Path::new("db.json").exists();
+    let b = Path::new("src/db.json").exists();
 
     if b==true{
         println!("database exists");
