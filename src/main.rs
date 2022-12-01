@@ -3,6 +3,7 @@ mod scripts;
 use std::path::Path;
 
 fn main() {
+    scripts::add();
     let args = std::env::args().nth(1).expect("NO COMMAND FOUND!");
     // println!("{}", args);
 

@@ -1,9 +1,7 @@
 use std::fs::File;
 use std::io;
 use std::io::Read;
-use serde_json::Value;
 use serde::{Deserialize, Serialize};
-use std::io::{BufWriter, Write};
 use serde_json::json;
 
 #[derive(Deserialize, Serialize)]
@@ -33,15 +31,17 @@ pub fn add() {
 	io::stdin()
 		.read_line(&mut title)
 		.expect("Title is Expected");
+	title = title.trim().to_string();
 	println!("Desciption");
 	io::stdin()
 		.read_line(&mut desc)
 		.expect("Description of the task is mandatory");
+	desc = desc.trim().to_string();
 	println!("Due Date");
 	io::stdin()
 		.read_line(&mut due_date)
 		.expect("");
-
+	due_date = due_date.trim().to_string();
 	let mut data = String::new();
 	file.read_to_string(&mut data).expect("Unable to Read file");
 	let v : Response = serde_json::from_str(&data).expect("Unable to read");
@@ -64,8 +64,41 @@ pub fn add() {
 		"email": v.email,
 		"tasks": task_vec
 	});
-	let mut writer = BufWriter::new(file);
-    serde_json::to_writer(&mut writer, &new_json);
-    writer.flush();
+	std::fs::write("src/db.json", serde_json::to_string_pretty(&new_json).unwrap()).unwrap();
+}
 
+pub fn view() {
+	let mut file = File::open("src/db.json").expect("Unable to Open file");
+	let mut data = String::new();
+	file.read_to_string(&mut data).expect("Unable to Read file");
+	let v : Response = serde_json::from_str(&data).expect("Unable to read");
+
+	println!("Displaying all Tasks");
+	for task in v.tasks {
+		println!("ID: {}", task.id);
+		println!("Title: {}", task.title);
+		println!("Description: {}", task.desc);
+		println!("Due Date: {}", task.due_date);
+		println!("Status: {}", task.status);
+	}
+}
+
+pub fn update() {
+	view();
+	println!("Enter the ID of the task that you want to update");
+	let mut input_line = String::new();
+	io::stdin()
+		.read_line(&mut input_line)
+		.expect("Error");
+	let id: u64 = input_line.trim().parse().expect("Input not an integer");
+	let mut file = File::open("src/db.json").expect("Unable to Open file");
+	let mut data = String::new();
+	file.read_to_string(&mut data).expect("Unable to Read file");
+	let v : Response = serde_json::from_str(&data).expect("Unable to read");
+
+	for task in v.tasks {
+		if(task.id == id) {
+			
+		}
+	}
 }

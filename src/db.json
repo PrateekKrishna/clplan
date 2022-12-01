@@ -1,13 +1,13 @@
 {
-	"name": "Raj Aryan",
-	"email": "18raj06@gmail.com",
-	"tasks": [
-		{
-			"id": 1089,
-			"title": "First",
-			"desc": "Furst Task",
-			"due_date": "19June",
-			"status": false
-		}
-	]
+  "email": "18raj06@gmail.com",
+  "name": "Raj Aryan",
+  "tasks": [
+    {
+      "desc": "Furst Task",
+      "due_date": "19June",
+      "id": 1089,
+      "status": false,
+      "title": "First"
+    }
+  ]
 }
