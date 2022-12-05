@@ -1,6 +1,14 @@
 use std::fs::File;
 use std::io;
 
+pub fn help(){
+    println!("--add : To add new task");
+    println!("--view : To view task");
+    println!("--complete : To change status of existing task");
+    println!("--update : To update existing task");
+    println!("--delete : To delete task");
+}
+
 pub fn init() {
     let mut name = String::new();
     let mut email = String::new();

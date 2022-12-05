@@ -40,7 +40,7 @@ pub fn add() {
 	println!("Due Date");
 	io::stdin()
 		.read_line(&mut due_date)
-		.expect("");
+		.expect("expected due date");
 	due_date = due_date.trim().to_string();
 	let mut data = String::new();
 	file.read_to_string(&mut data).expect("Unable to Read file");
@@ -152,39 +152,39 @@ pub fn update() {
 	std::fs::write("src/db.json", serde_json::to_string_pretty(&new_json).unwrap()).unwrap();
 }
 
-pub fn complete(id: u64) {
-	let mut file = File::open("src/db.json").expect("Unable to Open file");
-	let mut data = String::new();
-	file.read_to_string(&mut data).expect("Unable to Read file");
-	let v : Response = serde_json::from_str(&data).expect("Unable to read");
+// pub fn complete(id: u64) {
+// 	let mut file = File::open("src/db.json").expect("Unable to Open file");
+// 	let mut data = String::new();
+// 	file.read_to_string(&mut data).expect("Unable to Read file");
+// 	let v : Response = serde_json::from_str(&data).expect("Unable to read");
 
-	let mut upd_task = Task {
-		id: 0,
-		title: "".to_string(),
-		desc: "".to_string(),
-		due_date: "".to_string(),
-		status: false
-	};
-	let mut task_vec = Vec::new();
-	for task in v.tasks {
-		if task.id == id {
-			upd_task.id = id;
-			upd_task.title = task.title.trim().to_string();
-			upd_task.desc = task.desc.trim().to_string();
-			upd_task.due_date = task.due_date.trim().to_string()
-			upd_task.status = true;
-			task_vec.push(upd_task);
-		} else {
-			task_vec.push(task);
-		}
-	}
-	let new_json = json!({
-		"name": v.name,
-		"email": v.email,
-		"tasks": task_vec
-	});
-	std::fs::write("src/db.json", serde_json::to_string_pretty(&new_json).unwrap()).unwrap();
-}
+// 	let mut upd_task = Task {
+// 		id: 0,
+// 		title: "".to_string(),
+// 		desc: "".to_string(),
+// 		due_date: "".to_string(),
+// 		status: false
+// 	};
+// 	let mut task_vec = Vec::new();
+// 	for task in v.tasks {
+// 		if task.id == id {
+// 			upd_task.id = id;
+// 			upd_task.title = task.title.trim().to_string();
+// 			upd_task.desc = task.desc.trim().to_string();
+// 			upd_task.due_date = task.due_date.trim().to_string();
+// 			upd_task.status = true;
+// 			task_vec.push(upd_task);
+// 		} else{
+// 			task_vec.push(task);
+// 		}
+// 	}
+// 	let new_json = json!({
+// 		"name": v.name,
+// 		"email": v.email,
+// 		"tasks": task_vec
+// 	});
+// 	std::fs::write("src/db.json", serde_json::to_string_pretty(&new_json).unwrap()).unwrap();
+// }
 
 pub fn delete(id: u64) {
 	let mut file = File::open("src/db.json").expect("Unable to Open file");
