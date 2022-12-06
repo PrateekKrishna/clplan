@@ -9,7 +9,7 @@ fn main() {
     let c = Path::new("src/db.json").exists();
 
     //check if argument is to initialise clplan, init is only called when db.jsom doesn't exists
-    if args == "init" && c == false{
+    if args == "init" && !c {
         init::init();
     }
 
@@ -21,7 +21,7 @@ fn main() {
 
 
     let b = Path::new("src/db.json").exists();
-    if b==true{
+    if b {
         let mut argument = String::new();
 
         println!("you can enter --help to get list of commands");
@@ -42,7 +42,15 @@ fn main() {
             scripts::update();
         }
         else if input == "complete" || input == "--complete" {
-            // scripts::complete();
+            scripts::view();
+
+            println!("Enter the ID of the task that you want to delete");
+            let mut input_line = String::new();
+            io::stdin()
+                .read_line(&mut input_line)
+                .expect("Error");
+            let id: u64 = input_line.trim().parse().expect("Input not an integer");
+            scripts::complete(id);
         }
         else if input == "delete" || input == "--delete" {
 
@@ -58,7 +66,7 @@ fn main() {
         }
 
     }
-    else if b==false{
+    else if !b {
         eprintln!("Your first need to initialise app using '-- init' command");
     }
     else{
