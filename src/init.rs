@@ -1,5 +1,6 @@
 use std::fs::File;
 use std::io;
+use serde_json::json;
 
 pub fn help(){
     println!("--add : To add new task");
@@ -24,4 +25,11 @@ pub fn init() {
         .expect("Expected your email");
     println!("Your email is: {} ", email);
     let _f = File::create("src/db.json");
+    let new_json = json!({
+        "name": name,
+        "email": email,
+        "tasks": []
+    });
+    std::fs::write("src/db.json", serde_json::to_string_pretty(&new_json).unwrap()).unwrap();
+    println!("Account has been Initialised!");
 }
