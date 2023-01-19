@@ -48,13 +48,14 @@ fn main() {
 
             scripts::view();
 
-            println!("Enter the ID of the task that you want to delete");
+            println!("\nEnter the ID of the task that you want to delete");
             let mut input_line = String::new();
             io::stdin()
                 .read_line(&mut input_line)
                 .expect("Error");
             let id: u64 = input_line.trim().parse().expect("Input not an integer");
             scripts::delete(id);
+            println!("successfully deleted task with id: {}", id);
         }
 
     }
