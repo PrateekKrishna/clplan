@@ -1,0 +1,27 @@
+//organisation
+_id: sasdas123123123231
+name: google
+password: security123*
+members: []
+
+
+
+//tasks
+_id
+organisation_id:
+dept_id:
+assignedBy: 
+title:
+dedc:
+due_date:
+
+
+
+//members
+_id: avcvc123
+organisation_id:
+name: raj
+dept: HR
+dept_id: HR1234
+email: abc
+password: security123*

@@ -3,20 +3,39 @@
 // use std::path::Path;
 // use std::io;
 
-#[macro_use]
-extern crate rocket;
-use rocket::{get, http::Status, serde::json::Json};
+// use std::env;
+extern crate dotenv;
+use dotenv::dotenv;
+use mongodb::{
+    bson::doc,
+    sync::Client,
+    sync::Collection,
+    bson::Document,
+    
+};
 
-#[get("/")]
-fn hello() -> Result<Json<String>, Status> {
-    Ok(Json(String::from("Hello from rust and mongoDB")))
+// use crate::models::user_model::User;
+
+// pub struct MongoRepo {
+//     col: Collection<User>,
+// }
+
+
+fn init(client: mongodb::sync::Client){
+    let db = client.database("clplan");
+    let coll = db.collection::<Document>("users");
+    coll.insert_one(doc! {"name": "Raj Aryan", "password": "pass123*"}, None);
 }
 
-#[launch]
-fn rocket() -> _ {
-    rocket::build().mount("/", routes![hello])
-}
 
+fn main(){
+    println!("Hello clplan");
+    dotenv().ok();
+    let client = Client::with_uri_str("mongodb+srv://clplan:clplan123*@clplan.dbnpcj8.mongodb.net/test").unwrap();
+    // let db = client.database("clplan");
+    init(client);
+    
+}
 
 // fn main() {
 //     let args = std::env::args().nth(1).expect("OOPS!! NO COMMAND FOUND!");
